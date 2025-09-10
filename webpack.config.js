@@ -1,5 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
-
+const path = require('path');
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -20,10 +20,15 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('reactApp', '/assets/app.js')
+    .addEntry('app', './assets/app.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    .addAliases({
+        '@symfony/stimulus-bridge/controllers.json': path.resolve(__dirname, 'assets/controllers.json')
+    })
+    .enableStimulusBridge('./assets/controllers.json')
     .splitEntryChunks()
+    .enableReactPreset()
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
@@ -51,10 +56,10 @@ Encore
     // })
 
     // enables and configure @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = '3.38';
-    })
+    // .configureBabelPresetEnv((config) => {
+    //     config.useBuiltIns = 'usage';
+    //     config.corejs = '3.38';
+    // })
 
     // enables Sass/SCSS support
     //.enableSassLoader()
