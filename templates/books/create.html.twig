@@ -1,0 +1,28 @@
+{% extends "dashboard/index.html.twig" %}
+
+{% block title %}Create Books {% endblock %}
+
+{% block body %}
+
+<form method="post" action="{{ path('save_book_create') }}">
+  <div class="mb-3">
+    <label for="nama_buku" class="form-label">Nama Buku</label>
+    <input type="text" class="form-control" id="nama_buku" name="nama_buku">
+  </div>
+  <div class="mb-3">
+    <label for="genre" class="form-label">Genre</label>
+    <input type="text" class="form-control" id="genre" name="genre">
+  </div>
+  <div class="mb-3">
+    <label for="stock" class="form-label">Stock</label>
+    <input type="number" class="form-control" id="stock" name="stock">
+  </div>
+  <div class="mb-3">
+    <label for="author" class="form-label">Pembuat</label>
+    <input type="text" class="form-control" id="author" name="author">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="{{ path('app_books') }}" class="btn btn-secondary">Kembali</a>
+</form>
+
+{% endblock  %}

@@ -1,0 +1,33 @@
+{% extends "dashboard/index.html.twig" %}
+
+{% block title %}Books {% endblock %}
+
+{% block body %}
+    <a href="{{ path('tambah_buku') }}" class="btn btn-primary" style="margin-bottom: 3%">Tambah Buku</a>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>No</th>
+                <th>Judul</th>
+                <th>Genre</th>
+                <th>Stock</th>
+                <th>Penulis</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ book.nama_buku }}</td>
+                    <td>{{ book.genre }}</td>
+                    <td>{{ book.stock }}</td>
+                    <td>{{ book.author }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada data buku</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock  %}

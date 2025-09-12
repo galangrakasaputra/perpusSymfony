@@ -16,6 +16,15 @@ class TransaksiRepository extends ServiceEntityRepository
         parent::__construct($registry, Transaksi::class);
     }
 
+    public function getTransaction(): array
+    {
+        return $this->createQueryBuilder('t')
+        ->join('t.books_ID', 'b')
+        ->addSelect('b')
+        ->getQuery()
+        ->getResult();
+    }
+
     //    /**
     //     * @return Transaksi[] Returns an array of Transaksi objects
     //     */

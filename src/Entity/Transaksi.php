@@ -4,13 +4,16 @@ namespace App\Entity;
 
 use App\Repository\TransaksiRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Books;
 #[ORM\Entity(repositoryClass: TransaksiRepository::class)]
 class Transaksi
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[ORM\OneToOne(targetEntity: Books::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Books $books_ID = null;
     private ?int $id = null;
 
     #[ORM\Column]
@@ -28,6 +31,17 @@ class Transaksi
     {
         $this->id = $id;
 
+        return $this;
+    }
+
+    public function getBooks(): ?Books
+    {
+        return $this->books_ID;
+    }
+
+    public function setBooks(?Books $Books): static
+    {
+        $this->books_ID = $Books;
         return $this;
     }
 
