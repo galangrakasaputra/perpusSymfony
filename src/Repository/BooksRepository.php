@@ -23,6 +23,29 @@ class BooksRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+
+    public function addBooks($data): void
+    {
+        $book = new Books();
+        $book->setNamaBuku($data['nama_buku']);
+        $book->setGenre($data['genre']);
+        $book->setStock($data['stock']);
+        $book->setAuthor($data['author']);
+        $em = $this->getEntityManager();
+        $em->persist($book);
+        $em->flush();
+    }
+
+    public function deleteBook(int $id): void
+    {
+        $this->createQueryBuilder('b')
+        ->delete()
+        ->where('b.id = :id')
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->execute();
+    }
+
     //    /**
     //     * @return Books[] Returns an array of Books objects
     //     */

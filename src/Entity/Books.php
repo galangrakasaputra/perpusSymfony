@@ -17,8 +17,8 @@ class Books
     #[ORM\Column(length: 255)]
     private ?string $nama_buku = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private ?array $genre = null;
+    #[ORM\Column(length: 255)]
+    private ?string $genre = null;
 
     #[ORM\Column]
     private ?int $stock = null;
@@ -50,12 +50,12 @@ class Books
         return $this;
     }
 
-    public function getGenre(): ?array
+    public function getGenre(): ?string
     {
         return $this->genre;
     }
 
-    public function setGenre(?array $genre): static
+    public function setGenre(string $genre): static
     {
         $this->genre = $genre;
 

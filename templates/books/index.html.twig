@@ -12,20 +12,24 @@
                 <th>Genre</th>
                 <th>Stock</th>
                 <th>Penulis</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             {% for book in books %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td>{{ book.nama_buku }}</td>
+                    <td>{{ book.namaBuku }}</td>
                     <td>{{ book.genre }}</td>
                     <td>{{ book.stock }}</td>
                     <td>{{ book.author }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5" class="text-center">Tidak ada data buku</td>
+                    <td>
+                        <a href="{{ path('edit_buku', {id: book.id}) }}" class="btn btn-sm btn-warning">Buku</a>
+                        <form method="post" action="{{ path('hapus_buku', {id: book.id}) }}" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
+                            <input type="hidden" name="hapus_id" value="{{ book.id }}">
+                            <button class="btn btn-sm btn-danger">Hapus</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
