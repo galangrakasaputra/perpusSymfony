@@ -16,6 +16,58 @@ class MemberRepository extends ServiceEntityRepository
         parent::__construct($registry, Member::class);
     }
 
+    public function getAllMember(){
+        $data = $this->createQueryBuilder('m')
+        ->orderBy('m.id', 'ASC')
+        ->getQuery()
+        ->getResult();
+
+        if($data != []){
+            return $data;
+        }else{
+            return false;
+        }
+    }
+
+    public function addMember($data): void
+    {
+        $member = new Member();
+        $member->setKTA($data['kta']);
+        $member->setNama($data['nama_anggota']);
+        $em = $this->getEntityManager();
+        $em->persist($member);
+        $em->flush();
+    }
+
+    public function deleteMember(int $id): void
+    {
+        $this->createQueryBuilder('b')
+        ->delete()
+        ->where('b.id = :id')
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->execute();
+    }
+
+    public function getDataMember(int $id)
+    {
+        return $this->createQueryBuilder('b')
+        ->where('b.id = :id')
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
+    public function editMember($data, int $id): void
+    {
+        $member = $this->find($id);
+        $member->setKTA($data['kta']);
+        $member->setNama($data['nama_anggota']);
+        $em = $this->getEntityManager();
+        $em->persist($member);
+        $em->flush();
+    }
+
     //    /**
     //     * @return Member[] Returns an array of Member objects
     //     */

@@ -23,10 +23,8 @@ final class BooksController extends AbstractController
     #[Route('/create_book', name: 'tambah_buku')]
     public function create(BooksRepository $books): Response
     {
-        $data = $books->getAllBooks();
         return $this->render('books/create.html.twig', [
             'controller_name' => 'BooksController',
-            'books' => $data,
         ]);
     }
 
@@ -40,8 +38,20 @@ final class BooksController extends AbstractController
     }
     
     #[Route('/edit_book/{id}', name: 'edit_buku')]
-    public function edit(){
+    public function edit(int $id, BooksRepository $book){
+        $data = $book->getDataBook($id);
+        return $this->render('books/edit.html.twig', [
+            'books' => $data
+        ]);
+    }
+
+    #[Route('/update_book/{id}', name: 'save_book_edit', methods: ['POST'])]
+    public function update(int $id,Request $request, BooksRepository $books): Response
+    {
+        $data = $request->request->all();
+        $books->editBooks($data, $id);
         
+        return $this->redirectToRoute('app_books');
     }
     
     #[Route('/delete_book/{id}', name: 'hapus_buku', methods: ['POST'])]

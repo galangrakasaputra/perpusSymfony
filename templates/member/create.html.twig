@@ -1,0 +1,20 @@
+{% extends "dashboard/index.html.twig" %}
+
+{% block title %}Add Member {% endblock %}
+
+{% block body %}
+
+<form method="post" action="{{ path('save_member_create') }}">
+  <div class="mb-3">
+    <label for="kta" class="form-label">KTA</label>
+    <input type="number" class="form-control" id="kta" name="kta">
+  </div>
+  <div class="mb-3">
+    <label for="nama_anggota" class="form-label">Nama Anggota</label>
+    <input type="text" class="form-control" id="nama_anggota" name="nama_anggota">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="{{ path('app_member') }}" class="btn btn-secondary">Kembali</a>
+</form>
+
+{% endblock  %}

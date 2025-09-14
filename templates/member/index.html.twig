@@ -1,0 +1,39 @@
+{% extends "dashboard/index.html.twig" %}
+
+{% block title %}Member {% endblock %}
+
+{% block body %}
+    <a href="{{ path('tambah_anggota') }}" class="btn btn-primary" style="margin-bottom: 3%">Tambah Anggota</a>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>No</th>
+                <th>KTA</th>
+                <th>Nama</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if members == false %}
+                <tr>
+                    <td colspan="4" style="text-align: center"> Tidak ada Data </td>
+                </tr>
+            {% else %}
+            {% for member in members %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ member.kta }}</td>
+                    <td>{{ member.nama }}</td>
+                    <td>
+                        <a href="{{ path('edit_anggota', {id: member.id}) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form method="post" action="{{ path('hapus_anggota', {id: member.id}) }}" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
+                            <input type="hidden" name="hapus_id" value="{{ member.id }}">
+                            <button class="btn btn-sm btn-danger">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock  %}

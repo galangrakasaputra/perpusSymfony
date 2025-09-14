@@ -46,6 +46,26 @@ class BooksRepository extends ServiceEntityRepository
         ->execute();
     }
 
+    public function editBooks($data, int $id): void
+    {
+        $book = $this->find($id);
+        $book->setNamaBuku($data['nama_buku']);
+        $book->setGenre($data['genre']);
+        $book->setStock($data['stock']);
+        $book->setAuthor($data['author']);
+        $em = $this->getEntityManager();
+        $em->flush();
+    }
+
+    public function getDataBook(int $id)
+    {
+        return $this->createQueryBuilder('b')
+        ->where('b.id = :id')
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Books[] Returns an array of Books objects
     //     */
